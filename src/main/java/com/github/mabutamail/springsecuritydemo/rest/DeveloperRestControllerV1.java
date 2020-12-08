@@ -1,10 +1,7 @@
 package com.github.mabutamail.springsecuritydemo.rest;
 
 import com.github.mabutamail.springsecuritydemo.model.Developer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +27,17 @@ public class DeveloperRestControllerV1 {
         return DEVELOPERS.stream().filter(developer -> developer.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @PostMapping
+    public Developer create(Developer developer){
+        this.DEVELOPERS.add(developer);
+        return developer;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id){
+        this.DEVELOPERS.removeIf(developer -> developer.getId().equals(id));
     }
 
 }
